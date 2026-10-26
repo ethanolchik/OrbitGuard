@@ -892,7 +892,7 @@ export function DashboardClient() {
 
               {/* Link to full asset view */}
               <div style={{ marginTop: 14 }}>
-                <Link href={`/assets/${selectedSat.norad_id}`}>
+                <Link href={`/asset/?noradId=${selectedSat.norad_id}`}>
                   Full Asset View →
                 </Link>
               </div>

@@ -18,5 +18,6 @@ backend/orbitguard.db-shm
 backend/orbitguard.db-wal
 
 .next-local/
+frontend/out/
 .idea/
 backend/orbitguard.db

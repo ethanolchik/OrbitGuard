@@ -1,12 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState, useCallback } from 'react';
 
-import { AvoidancePlan, Conjunction, getConjunctions, optimizeAvoidance, getAvoidancePlan } from '../../../lib/api';
+import { AvoidancePlan, Conjunction, getConjunctions, optimizeAvoidance, getAvoidancePlan } from '../../lib/api';
 
-export default function AssetView({ params }: { params: { noradId: string } }) {
-  const noradId = Number(params.noradId);
+function AssetViewContent() {
+  const params = useSearchParams();
+  const noradId = Number(params.get('noradId'));
   const [events, setEvents] = useState<Conjunction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -175,5 +177,13 @@ export default function AssetView({ params }: { params: { noradId: string } }) {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AssetView() {
+  return (
+    <Suspense fallback={<div className="panel">Loading asset…</div>}>
+      <AssetViewContent />
+    </Suspense>
   );
 }

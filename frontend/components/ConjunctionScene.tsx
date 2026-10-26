@@ -20,13 +20,20 @@ function OrbitLine({ points, color }: { points: Sample[]; color: string }) {
     return geom;
   }, [points]);
 
-  useEffect(() => () => geometry.dispose(), [geometry]);
-
-  return (
-    <line geometry={geometry} frustumCulled={false}>
-      <lineBasicMaterial color={color} />
-    </line>
+  const line = useMemo(
+    () => new THREE.Line(geometry, new THREE.LineBasicMaterial({ color })),
+    [geometry, color]
   );
+
+  useEffect(
+    () => () => {
+      geometry.dispose();
+      line.material.dispose();
+    },
+    [geometry, line]
+  );
+
+  return <primitive object={line} frustumCulled={false} />;
 }
 
 export function ConjunctionScene({

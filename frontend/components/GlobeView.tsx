@@ -180,7 +180,7 @@ function GridLines() {
       {[...latLines, ...lonLines].map(({ key, arr }) => (
         <line key={key}>
           <bufferGeometry>
-            <bufferAttribute attach="attributes-position" count={65} array={arr} itemSize={3} />
+            <bufferAttribute attach="attributes-position" args={[arr, 3]} />
           </bufferGeometry>
           <lineBasicMaterial color="#ffffff" transparent opacity={0.15} />
         </line>
@@ -237,19 +237,27 @@ function OrbitLine({ points, color = '#7ad6ff', opacity = 0.7 }: { points: THREE
     return geom;
   }, [points]);
 
+  const line = useMemo(
+    () =>
+      geometry
+        ? new THREE.Line(
+            geometry,
+            new THREE.LineBasicMaterial({ color, transparent: true, opacity })
+          )
+        : null,
+    [geometry, color, opacity]
+  );
+
   useEffect(() => {
     return () => {
       geometry?.dispose();
+      line?.material.dispose();
     };
-  }, [geometry]);
+  }, [geometry, line]);
 
-  if (!geometry) return null;
+  if (!line) return null;
 
-  return (
-    <line geometry={geometry} frustumCulled={false}>
-      <lineBasicMaterial color={color} transparent opacity={opacity} />
-    </line>
-  );
+  return <primitive object={line} frustumCulled={false} />;
 }
 
 function OrbitDashedLine({

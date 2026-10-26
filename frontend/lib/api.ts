@@ -1,10 +1,10 @@
 const configuredBase = process.env.API_BASE || process.env.NEXT_PUBLIC_API_BASE;
+const localApiBases =
+  process.env.NODE_ENV === 'development'
+    ? ['http://127.0.0.1:8000', 'http://localhost:8000']
+    : [];
 const API_BASE_CANDIDATES = Array.from(
-  new Set(
-    [configuredBase, 'http://127.0.0.1:8000', 'http://localhost:8000'].filter(
-      (v): v is string => Boolean(v)
-    )
-  )
+  new Set([configuredBase, ...localApiBases].filter((v): v is string => Boolean(v)))
 );
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {

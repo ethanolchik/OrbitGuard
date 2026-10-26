@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: orbitguard-api-ethanolchik
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:////data/orbitguard.db
+      - key: FRONTEND_URL
+        value: https://orbitguard.ethanolchik.me
+    disk:
+      name: orbitguard-data
+      mountPath: /data
+      sizeGB: 1
