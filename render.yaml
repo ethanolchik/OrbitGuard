@@ -13,4 +13,4 @@ services:
       - key: FRONTEND_URL
         value: https://orbitguard.ethanolchik.me
       - key: TLE_SOURCE_URL
-        value: https://raw.githubusercontent.com/ethanolchik/OrbitGuard/main/backend/data/stations.tle
+        value: https://raw.githubusercontent.com/ethanolchik/OrbitGuard/main/backend/data/catalog.tle

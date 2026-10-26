@@ -219,7 +219,7 @@ class IngestService:
         primary_lower = primary.lower()
         github_mirror = (
             "https://raw.githubusercontent.com/ethanolchik/OrbitGuard/"
-            "main/backend/data/stations.tle"
+            "main/backend/data/catalog.tle"
         )
         celestrak_fallbacks = [
             "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=3le",

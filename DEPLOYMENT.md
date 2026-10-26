@@ -15,7 +15,7 @@ Fork `KhushM7/OrbitGuard` into the `ethanolchik` GitHub account, then push these
 2. Render will read `render.yaml` and create the free `orbitguard-api-ethanolchik` service.
 3. Wait for the health check to pass, then copy the service URL, such as `https://orbitguard-api-ethanolchik.onrender.com`.
 
-Render's free tier spins down after inactivity and does not provide persistent storage. The SQLite catalog is rebuilt from CelesTrak whenever Render replaces or restarts the service, so the first request after a cold start may be slow or temporarily return an empty catalog. To stay within free-tier CPU and memory limits, the deployment loads a mirrored snapshot of CelesTrak's smaller space-stations catalog rather than the multi-megabyte active-satellites catalog. This also avoids CelesTrak rejecting requests from shared cloud-hosting IP addresses.
+Render's free tier spins down after inactivity and does not provide persistent storage. The SQLite catalog is rebuilt from CelesTrak whenever Render replaces or restarts the service, so the first request after a cold start may be slow or temporarily return an empty catalog. To stay within free-tier CPU and memory limits, the deployment loads a mirrored catalog of 250 LEO objects selected from CelesTrak rather than the full multi-megabyte active-satellites catalog. This also avoids CelesTrak rejecting requests from shared cloud-hosting IP addresses.
 
 ## 3. Configure GitHub Pages
 
