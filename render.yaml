@@ -4,15 +4,11 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: starter
+    plan: free
     healthCheckPath: /
     autoDeploy: true
     envVars:
       - key: DATABASE_URL
-        value: sqlite:////data/orbitguard.db
+        value: sqlite:////tmp/orbitguard.db
       - key: FRONTEND_URL
         value: https://orbitguard.ethanolchik.me
-    disk:
-      name: orbitguard-data
-      mountPath: /data
-      sizeGB: 1

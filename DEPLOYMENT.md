@@ -3,7 +3,7 @@
 OrbitGuard is split across two hosts because GitHub Pages only serves static files:
 
 - Frontend: GitHub Pages at `https://orbitguard.ethanolchik.me`
-- FastAPI backend and persistent SQLite database: Render
+- FastAPI backend and ephemeral SQLite database: Render free tier
 
 ## 1. Fork and push
 
@@ -12,10 +12,10 @@ Fork `KhushM7/OrbitGuard` into the `ethanolchik` GitHub account, then push these
 ## 2. Deploy the backend on Render
 
 1. In Render, choose **New > Blueprint** and connect the fork.
-2. Render will read `render.yaml` and create `orbitguard-api-ethanolchik` with a persistent 1 GB disk.
+2. Render will read `render.yaml` and create the free `orbitguard-api-ethanolchik` service.
 3. Wait for the health check to pass, then copy the service URL, such as `https://orbitguard-api-ethanolchik.onrender.com`.
 
-The Blueprint uses Render's paid Starter service because persistent disks are not available on the free web-service tier.
+Render's free tier spins down after inactivity and does not provide persistent storage. The SQLite catalog is rebuilt from CelesTrak whenever Render replaces or restarts the service, so the first request after a cold start may be slow or temporarily return an empty catalog.
 
 ## 3. Configure GitHub Pages
 
@@ -39,4 +39,4 @@ Do not add an `AAAA` record unless GitHub explicitly supplies one. After DNS and
 
 ## Updating
 
-Pushing to `main` redeploys both services. The Pages workflow rebuilds the frontend with the configured API URL, while Render rebuilds the backend.
+Pushing to `main` redeploys both services. The Pages workflow rebuilds the frontend with the configured API URL, while Render rebuilds the backend. Upgrade Render later only if persistent database storage and no cold starts become necessary.
