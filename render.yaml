@@ -13,4 +13,4 @@ services:
       - key: FRONTEND_URL
         value: https://orbitguard.ethanolchik.me
       - key: TLE_SOURCE_URL
-        value: https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle
+        value: https://raw.githubusercontent.com/ethanolchik/OrbitGuard/main/backend/data/stations.tle

@@ -217,14 +217,18 @@ class IngestService:
     def _bulk_tle_source_urls(self) -> list[str]:
         primary = settings.tle_source_url
         primary_lower = primary.lower()
+        github_mirror = (
+            "https://raw.githubusercontent.com/ethanolchik/OrbitGuard/"
+            "main/backend/data/stations.tle"
+        )
         celestrak_fallbacks = [
             "https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=3le",
             "https://celestrak.org/NORAD/elements/active.txt",
             "https://www.celestrak.com/NORAD/elements/active.txt",
         ]
         if "celestrak.org" in primary_lower or "celestrak.com" in primary_lower:
-            return self._dedupe_urls([primary, *celestrak_fallbacks])
-        return [primary]
+            return self._dedupe_urls([github_mirror, primary, *celestrak_fallbacks])
+        return self._dedupe_urls([primary, github_mirror])
 
     def _single_satellite_source_urls(self, norad_id: int) -> list[str]:
         return self._dedupe_urls(
