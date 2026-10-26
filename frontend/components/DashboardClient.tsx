@@ -217,7 +217,7 @@ export function DashboardClient() {
         setBands(congestion.bands);
         setError(null);
       } catch {
-        setError('API unreachable. Start backend on http://localhost:8000 and refresh.');
+        setError('OrbitGuard API is temporarily unreachable. It may be waking from the free-tier cold start; wait a minute and refresh.');
       } finally {
         setLoading(false);
       }

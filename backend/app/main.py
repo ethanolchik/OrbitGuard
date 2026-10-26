@@ -15,9 +15,14 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title=settings.app_name)
-allowed_origins = ["http://localhost:3000"]
+allowed_origins = [
+    "http://localhost:3000",
+    "http://orbitguard.ethanolchik.me",
+    "https://orbitguard.ethanolchik.me",
+    "https://ethanolchik.github.io",
+]
 frontend_url = os.environ.get("FRONTEND_URL")
-if frontend_url:
+if frontend_url and frontend_url not in allowed_origins:
     allowed_origins.append(frontend_url)
 
 app.add_middleware(
